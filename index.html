@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Find the best budget tech products. Expert reviews and buying guides with Amazon affiliate links.">
+  <title>Best Budget Tech Picks</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #121212;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+
+    .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+    header {
+      background: #1e1e1e;
+      padding: 30px 20px;
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .logo-icon { font-size: 2.5rem; }
+    
+    .logo-text {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff9903, #ff6600);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+    }
+
+    .tagline { color: #aaa; font-size: 1.1rem; }
+
+    .disclaimer {
+      background: #2d2518;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 20px 0;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #e0d5b8;
+    }
+
+    .breadcrumb {
+      padding: 10px 0;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .breadcrumb a {
+      color: #64b5f6;
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 30px 0;
+    }
+
+    .category-card {
+      background: #1e1e1e;
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      text-decoration: none;
+      color: #e0e0e0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    .category-card .icon { font-size: 3rem; margin-bottom: 12px; }
+    .category-card .name { font-size: 1.1rem; font-weight: 600; }
+    .category-card .count { font-size: 0.85rem; color: #888; margin-top: 4px; }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin: 30px 0 20px;
+      color: #fff;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .product-card {
+      background: #1e1e1e;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    .product-image {
+      width: 100%;
+      max-height: 150px;
+      object-fit: contain;
+      background: #2a2a2a;
+      display: block;
+      padding: 10px;
+    }
+
+    .emoji-fallback {
+      width: 100%;
+      height: 150px;
+      background: #2a2a2a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .product-content { padding: 20px; }
+    .product-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; color: #fff; }
+    .product-desc { color: #888; font-size: 0.9rem; margin-bottom: 12px; }
+
+    .product-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .product-price { font-size: 1.2rem; font-weight: 700; color: #4ade80; }
+    .product-rating { color: #f5a623; font-size: 0.9rem; }
+
+    .btn-buy {
+      display: block;
+      width: 100%;
+      padding: 12px 20px;
+      background: #0071e3;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+      transition: background 0.2s;
+    }
+
+    .btn-buy:hover { background: #0077ed; }
+    .btn-buy::after { content: ' →'; }
+
+    .search-banner {
+      background: #1e1e1e;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      margin: 20px 0;
+    }
+
+    .search-banner-inner {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      padding: 30px;
+    }
+
+    .search-banner .banner-image {
+      width: 200px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+
+    .search-banner .banner-content {
+      flex: 1;
+    }
+
+    .search-banner h3 { font-size: 1.3rem; margin-bottom: 8px; color: #fff; }
+    .search-banner p { color: #888; font-size: 0.95rem; margin-bottom: 16px; }
+
+    .btn-search {
+      display: inline-block;
+      padding: 14px 30px;
+      background: #ff9903;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-search:hover { 
+      background: #e8711a;
+      transform: scale(1.05);
+    }
+
+    .category-card .card-image {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .category-card .icon { font-size: 3rem; margin-bottom: 12px; }
+    .category-card .name { font-size: 1.1rem; font-weight: 600; }
+    .category-card .count { font-size: 0.85rem; color: #888; margin-top: 4px; }
+
+    .features {
+      background: #1e1e1e;
+      border-radius: 16px;
+      padding: 30px;
+      margin: 30px 0;
+    }
+
+    .features h2 { margin-bottom: 20px; color: #fff; }
+    .features ul { list-style: none; }
+    .features li { padding: 8px 0; padding-left: 24px; position: relative; color: #ccc; }
+    .features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #34c759;
+    }
+
+    .affiliate-disclosure {
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 40px;
+    }
+
+    .affiliate-disclosure strong { color: #ccc; }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 40px;
+      border-top: 1px solid #333;
+    }
+
+    .hidden { display: none; }
+
+    .hero-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 20px 0;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .hero-gallery img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s;
+    }
+
+    .hero-gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .hero-overlay {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    .hero-overlay img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.5rem; }
+      .categories-grid { grid-template-columns: repeat(2, 1fr); }
+      .product-grid { grid-template-columns: 1fr; }
+      .search-banner-inner { flex-direction: column; text-align: center; padding: 20px; }
+      .search-banner .banner-image { width: 100%; height: 150px; }
+      .hero-gallery { grid-template-columns: 1fr; }
+      .hero-gallery img { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="logo">
+      <span class="logo-icon">🛒</span>
+      <span class="logo-text">WuziBuy</span>
+    </div>
+    <p class="tagline">Handpicked products with honest reviews</p>
+  </div>
+</header>
+
+<div class="container">
+  <div class="hero-gallery">
+    <div class="hero-overlay">
+      <img src="messi.webp" alt="Messi with Headphones" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="hero-overlay">
+      <img src="neymar.jpg" alt="Neymar with Headphones" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="hero-overlay">
+      <img src="pendu.jpg" alt="Pendu with Headphones" onerror="this.parentElement.style.display='none'">
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="disclaimer">
+    We may earn a commission from qualifying purchases. Prices and availability subject to change.
+  </div>
+
+  <div id="breadcrumb" class="breadcrumb hidden"></div>
+
+  <div id="home-view">
+    <div id="categories" class="categories-grid"></div>
+  </div>
+
+  <div id="category-view" class="hidden">
+    <h2 id="category-title" class="section-title"></h2>
+    <div id="search-banners"></div>
+    <div id="products" class="product-grid"></div>
+  </div>
+
+  <section class="features">
+    <h2>Why Trust Our Picks?</h2>
+    <ul>
+      <li>Tested and reviewed by real users</li>
+      <li>Only products with 4+ star ratings included</li>
+      <li>Regularly updated pricing and availability</li>
+    </ul>
+  </section>
+
+  <div class="affiliate-disclosure">
+    <strong>Affiliate Disclosure:</strong> As an Amazon Associate, we earn from qualifying purchases. This means we may receive a small commission when you click our links and make a purchase on Amazon. This comes at no additional cost to you and helps support our site.
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Best Budget Tech. As an Amazon Associate we earn from qualifying purchases.</p>
+</footer>
+
+<script>
+  // ============================================
+  // YOUR DATA - Edit this section only
+  // ============================================
+  
+  const categories = [
+    {
+      id: "headphones",
+      name: "Headphones",
+      icon: "🎧",
+      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop",
+      bannerImage: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&h=400&fit=crop",
+      description: "Best audio gear under $100"
+    },
+    {
+      id: "keyboards",
+      name: "Keyboards",
+      icon: "⌨️",
+      image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400&h=300&fit=crop",
+      bannerImage: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=600&h=400&fit=crop",
+      description: "Mechanical & wireless keyboards"
+    },
+    {
+      id: "phones",
+      name: "Phone Accessories",
+      icon: "📱",
+      image: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&h=300&fit=crop",
+      bannerImage: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&h=400&fit=crop",
+      description: "Cases, chargers, & more"
+    },
+    {
+      id: "laptops",
+      name: "Laptop Accessories",
+      icon: "💻",
+      image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop",
+      bannerImage: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&h=400&fit=crop",
+      description: "Stands, hubs, & bags"
+    },
+    {
+      id: "gaming",
+      name: "Gaming Gear",
+      icon: "🎮",
+      image: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&h=300&fit=crop",
+      bannerImage: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&h=400&fit=crop",
+      description: "Controllers, mice, & headsets"
+    },
+    {
+      id: "smart-home",
+      name: "Smart Home",
+      icon: "🏠",
+      image: "https://images.unsplash.com/photo-1558002038-1055907df827?w=400&h=300&fit=crop",
+      bannerImage: "https://images.unsplash.com/photo-1588693163491-891dc09ac3db?w=600&h=400&fit=crop",
+      description: "Smart plugs, bulbs, & cameras"
+    }
+  ];
+
+  // Search banners - one for each category
+  // These links cover ANY product in that search
+  const searchLinks = {
+    headphones: "https://amzn.to/47Lcfcq",
+    keyboards: "https://amzn.to/4lHkfkF",
+    phones: "https://amzn.to/480v7UR",
+    laptops: "https://amzn.to/4bEpgpc",
+    gaming: "https://amzn.to/41m1FVC",
+    "smart-home": "https://amzn.to/4cYguow"
+  };
+
+  // Individual products by category
+  // Replace placeholder links with your actual affiliate links
+  const products = {
+    headphones: [
+      {
+        name: "USB C Headphone for Samsung",
+        description: "Wired earbuds magnetic, compatible with S26 S25 FE S24 A16 A17.",
+        price: "$15.99",
+        rating: 4.3,
+        link: "https://www.amazon.com/dp/B09BFFGQ5N?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/71X2fcEIYzL._AC_UY218_.jpg"
+      },
+      {
+        name: "Soundcore P30i by Anker",
+        description: "Noise cancelling earbuds with strong smart noise reduction.",
+        price: "$49.99",
+        rating: 4.5,
+        link: "https://www.amazon.com/dp/B0CRTYZG5C?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/51HbL1WS+KL._AC_UY218_.jpg"
+      },
+      {
+        name: "Beats Studio Pro",
+        description: "Premium wireless over-ear headphones, up to 40-hour battery.",
+        price: "$349.99",
+        rating: 4.6,
+        link: "https://www.amazon.com/dp/B0C8PR4W22?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/61u-OaDSfQL._AC_UY218_.jpg"
+      },
+      {
+        name: "Audio-Technica ATH-M20xBT",
+        description: "Wireless over-ear headphones, Bluetooth.",
+        price: "$79.00",
+        rating: 4.4,
+        link: "https://www.amazon.com/dp/B09VJJLFX9?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/8123MFd26NL._AC_UL640_QL65_.jpg"
+      },
+      {
+        name: "OneOdio Wired Over Ear",
+        description: "Hi-Res studio monitor, mixing DJ headphones.",
+        price: "$35.99",
+        rating: 4.5,
+        link: "https://www.amazon.com/dp/B01N6ZJH96?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/81Sh1mHyxvL._AC_UY218_.jpg"
+      },
+      {
+        name: "Sony WH-CH720N",
+        description: "Noise canceling wireless headphones, Bluetooth.",
+        price: "$99.99",
+        rating: 4.5,
+        link: "https://www.amazon.com/dp/B0BS1QCFHX?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/51rpbVmi9XL._AC_UY218_.jpg"
+      },
+      {
+        name: "Audio-Technica ATH-M50X",
+        description: "Professional studio monitor headphones.",
+        price: "$129.00",
+        rating: 4.7,
+        link: "https://www.amazon.com/dp/B00HVLUR86?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/71G5OkSr2zL._AC_UY218_.jpg"
+      },
+      {
+        name: "Monster Open Ear AC317",
+        description: "Wireless headphones with premium sound.",
+        price: "$49.99",
+        rating: 4.3,
+        link: "https://www.amazon.com/dp/B0FX9QWC9Q?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/61yTEk8R8PL._AC_UY218_.jpg"
+      },
+      {
+        name: "Sony MDR7506",
+        description: "Professional large diaphragm headphone.",
+        price: "$99.95",
+        rating: 4.7,
+        link: "https://www.amazon.com/dp/B000AJIF4E?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/51F-Ok9xuzL._AC_UY218_.jpg"
+      },
+      {
+        name: "Sony MDR-ZX110",
+        description: "Wired on-ear headphones.",
+        price: "$16.99",
+        rating: 4.4,
+        link: "https://www.amazon.com/dp/B00NJ2M33I?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/41CiQ7hR31L._AC_UY218_.jpg"
+      },
+      {
+        name: "Soundcore Q20i by Anker",
+        description: "Hybrid active noise cancelling headphones.",
+        price: "$39.99",
+        rating: 4.5,
+        link: "https://www.amazon.com/dp/B0CQXMXJC5?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/51QSktkLy1L._AC_UY218_.jpg"
+      },
+      {
+        name: "Sony WH-CH520",
+        description: "Wireless headphones with microphone, up to 50 hours.",
+        price: "$39.99",
+        rating: 4.5,
+        link: "https://www.amazon.com/dp/B0BS1RT9S2?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/41JACWT-wWL._AC_UY218_.jpg"
+      },
+      {
+        name: "Logitech H390",
+        description: "Wired headset for PC/laptop with noise-canceling mic.",
+        price: "$24.99",
+        rating: 4.5,
+        link: "https://www.amazon.com/dp/B000UXZQ42?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/6144+3nBNhL._AC_UY218_.jpg"
+      },
+      {
+        name: "Apple EarPods Lightning",
+        description: "Wired ear buds for iPhone with Lightning connector.",
+        price: "$19.00",
+        rating: 4.4,
+        link: "https://www.amazon.com/dp/B0D7FVQ1ZB?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/317eB4+yU6L._AC_UY218_.jpg"
+      },
+      {
+        name: "Sony WH-CH520 White",
+        description: "Wireless on-ear headset, white color.",
+        price: "$39.99",
+        rating: 4.5,
+        link: "https://www.amazon.com/dp/B0BSGQL41X?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/41fn3hNjnRL._AC_UY218_.jpg"
+      },
+      {
+        name: "Beats Solo 4",
+        description: "Wireless on-ear Bluetooth headphones, up to 50-hour battery.",
+        price: "$179.99",
+        rating: 4.6,
+        link: "https://www.amazon.com/dp/B0CZPGX972?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/51JNqP2C4rL._AC_UY218_.jpg"
+      },
+      {
+        name: "Audio-Technica ATH-M20x",
+        description: "Professional studio monitor headphones, black.",
+        price: "$49.00",
+        rating: 4.6,
+        link: "https://www.amazon.com/dp/B00HVLUR18?tag=weselleazy4u-20",
+        image: "https://m.media-amazon.com/images/I/81zcnWFPwVS._AC_UY218_.jpg"
+      }
+    ],
+    keyboards: [
+      { name: "Logitech K120 Wired Keyboard", description: "USB plug-and-play, full-size.", price: "$24.99", rating: 4.5, link: "https://www.amazon.com/dp/B003ELVLKU?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61j3wQheLXL._AC_UY218_.jpg" },
+      { name: "Logitech MX Keys S Wireless Keyboard", description: "Low profile, fluid precise quiet typing.", price: "$99.99", rating: 4.7, link: "https://www.amazon.com/dp/B0BKW3LB2B?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71G7uXAb9BL._AC_UY218_.jpg" },
+      { name: "Amazon Basics Wired Keyboard", description: "QWERTY, works with Windows, plug and play.", price: "$14.99", rating: 4.4, link: "https://www.amazon.com/dp/B07WJ5D3H4?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71ehwfAM4-L._AC_UY218_.jpg" },
+      { name: "Logitech Ergo K860 Wireless", description: "Split keyboard, wrist rest, ergonomic.", price: "$129.99", rating: 4.6, link: "https://www.amazon.com/dp/B07ZWK2TQT?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/81ycyxqzoNL._AC_UY218_.jpg" },
+      { name: "MOFII Wireless Keyboard and Mouse Combo", description: "Milk tea colorful round key design.", price: "$29.99", rating: 4.3, link: "https://www.amazon.com/dp/B0B6G3H6ZD?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71IY1wmqFGL._AC_UL640_QL65_.jpg" },
+      { name: "Logitech MK270 Wireless Combo", description: "2.4 GHz wireless, full-size keyboard.", price: "$34.99", rating: 4.5, link: "https://www.amazon.com/dp/B079JLY5M5?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61+aByx2jML._AC_UY218_.jpg" },
+      { name: "Wireless Keyboard Mouse Combo Full-Sized", description: "Adjusted wireless keyboard and mouse.", price: "$32.99", rating: 4.4, link: "https://www.amazon.com/dp/B0DDT75R2R?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71vulVx1+8L._AC_UY218_.jpg" },
+      { name: "SinLoon Mini Programmable Mechanical Keyboard", description: "3 keys & 1 control knob.", price: "$39.99", rating: 4.2, link: "https://www.amazon.com/dp/B0GC97ZT4M?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71W+N+6xYRL._AC_UY218_.jpg" },
+      { name: "Logitech K270 Wireless Keyboard", description: "2.4 GHz wireless, full-size.", price: "$29.99", rating: 4.5, link: "https://www.amazon.com/dp/B004N627KS?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61FxW-B6tgL._AC_UY218_.jpg" },
+      { name: "Apple Magic Keyboard", description: "Bluetooth, US English.", price: "$99.00", rating: 4.7, link: "https://www.amazon.com/dp/B0DL6LV7Q6?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51Ipr9fTYHL._AC_UY218_.jpg" },
+      { name: "TECKNET Gaming Keyboard", description: "USB wired, 15-zone RGB illumination.", price: "$39.99", rating: 4.4, link: "https://www.amazon.com/dp/B0D17C3ZVJ?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/714WvRlURgL._AC_UY218_.jpg" },
+      { name: "Wireless Silent Ergonomic Keyboard Mouse", description: "Full size silent ergonomic combo.", price: "$36.99", rating: 4.5, link: "https://www.amazon.com/dp/B0DLBD36HL?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61CaBkGgWfL._AC_UY218_.jpg" },
+      { name: "Logitech MK270 Wireless Combo 2", description: "2.4 GHz wireless keyboard mouse.", price: "$34.99", rating: 4.5, link: "https://www.amazon.com/dp/B0D2X7DCG5?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61mtdhRTYmL._AC_UY218_.jpg" },
+      { name: "Logitech Signature K650", description: "Comfort full-size wireless with wrist rest.", price: "$99.99", rating: 4.5, link: "https://www.amazon.com/dp/B0B4ZWZ89X?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61X1TbsLQWL._AC_UY218_.jpg" },
+      { name: "GEODMAER 65% Gaming Keyboard", description: "Wired backlit mini keyboard, ultra-compact.", price: "$49.99", rating: 4.4, link: "https://www.amazon.com/dp/B0D3CZYCH2?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61RM1rMoceL._AC_UY218_.jpg" },
+      { name: "Logitech MK335 Quiet Wireless Combo", description: "Black/silver wireless keyboard mouse.", price: "$44.99", rating: 4.4, link: "https://www.amazon.com/dp/B072JX77X6?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/5110JBRA1-L._AC_UY218_.jpg" },
+      { name: "Logitech MK345 Wireless Combo", description: "With palm rest, 2.4 GHz wireless.", price: "$49.99", rating: 4.5, link: "https://www.amazon.com/dp/B00QXT5T3U?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61uieMl7JBL._AC_UY218_.jpg" }
+    ],
+    phones: [
+      { name: "Samsung Galaxy A16 4G LTE", description: "128GB + 4GB, International Model SM-A165F/D.", price: "$199.99", rating: 4.3, link: "https://www.amazon.com/dp/B0DM1S54MZ?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61Lp1UcxeLL._AC_UY218_.jpg" },
+      { name: "Samsung Galaxy S26 Ultra", description: "Unlocked Android Smartphone + $200 Gift Card.", price: "$1299.99", rating: 4.7, link: "https://www.amazon.com/dp/B0G4SW3XXP?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61UnzIc+97L._AC_UY218_.jpg" },
+      { name: "Samsung Galaxy A17 5G", description: "128GB, Large AMOLED, High-Res Camera.", price: "$249.99", rating: 4.4, link: "https://www.amazon.com/dp/B0FXY18C1J?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71Ss7HzbhUL._AC_UY218_.jpg" },
+      { name: "SAMSUNG Galaxy A16 4G LTE", description: "128GB + 4GB, International Model SM-A165F/D.", price: "$189.99", rating: 4.3, link: "https://www.amazon.com/dp/B0DT4T8D65?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51jEBZHYs3L._AC_UY218_.jpg" },
+      { name: "Bark Phone - Safest Phone for Kids", description: "Monitor texts, social media for kids & teens.", price: "$299.99", rating: 4.5, link: "https://www.amazon.com/dp/B0F7LP2K5D?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71Zl+M8HiaL._AC_UL640_QL65_.jpg" },
+      { name: "SAMSUNG Galaxy A16 4G Dual SIM", description: "128GB, 2025, 6.7 inch 90Hz AMOLED.", price: "$199.99", rating: 4.4, link: "https://www.amazon.com/dp/B0DNRFGBQ4?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51PEgOzPKLL._AC_UY218_.jpg" },
+      { name: "Apple iPhone 14, 128GB", description: "Midnight - Unlocked (Renewed).", price: "$429.00", rating: 4.5, link: "https://www.amazon.com/dp/B0BN72FYFG?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/41dhmioffWL._AC_UY218_.jpg" },
+      { name: "Samsung Galaxy S26+", description: "Unlocked Android Smartphone + $100 Gift Card.", price: "$999.99", rating: 4.6, link: "https://www.amazon.com/dp/B0G4SYN2QC?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61+Y5d0LdCL._AC_UY218_.jpg" },
+      { name: "Motorola Moto G Play 2024", description: "Unlocked, Made for US, 4/64GB, 50MP Camera.", price: "$99.99", rating: 4.3, link: "https://www.amazon.com/dp/B0CP6DDN1H?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61xk4XNRktL._AC_UY218_.jpg" },
+      { name: "Tracfone Motorola Moto G Play 2024", description: "Activation Promotion, Locked to Tracfone.", price: "$79.99", rating: 4.2, link: "https://www.amazon.com/dp/B0FTG3Z4YT?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71B2U9e0siL._AC_UY218_.jpg" },
+      { name: "Samsung Galaxy A17 5G", description: "128GB, Large AMOLED High-Res Camera.", price: "$249.99", rating: 4.4, link: "https://www.amazon.com/dp/B0FXY1DZ78?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/710u7UnAyWL._AC_UY218_.jpg" },
+      { name: "total wireless Samsung Galaxy A15 5G", description: "64GB Prepaid Smartphone, 6.5 inch FHD.", price: "$119.99", rating: 4.3, link: "https://www.amazon.com/dp/B0F6R3NG7Y?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71JokJD7ibL._AC_UY218_.jpg" },
+      { name: "Moto G Power 5G 2024", description: "Unlocked, Made for US, 8/128GB, 50MP Camera.", price: "$199.99", rating: 4.4, link: "https://www.amazon.com/dp/B0CT6BQV81?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61c9OZyq2yL._AC_UY218_.jpg" },
+      { name: "Samsung Galaxy A10e 32GB", description: "GSM Unlocked Phone - Black (Renewed).", price: "$79.99", rating: 4.1, link: "https://www.amazon.com/dp/B084KS5WYC?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71Eh6YWqqyL._AC_UY218_.jpg" },
+      { name: "Samsung Galaxy S25 FE Cell Phone", description: "2025, 256GB AI Smartphone, Unlocked.", price: "$649.99", rating: 4.6, link: "https://www.amazon.com/dp/B0FG1THCD7?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61JvXODKxOL._AC_UY218_.jpg" },
+      { name: "Samsung Galaxy A14 5G A Series", description: "Factory Unlocked, 64GB, US Version.", price: "$149.99", rating: 4.3, link: "https://www.amazon.com/dp/B0C1Q3MVBP?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71L1ezoIH9L._AC_UY218_.jpg" },
+      { name: "Samsung Galaxy Note 20 5G", description: "128GB, 8GB, 6.7 inch AMOLED+, Snapdragon 865.", price: "$449.99", rating: 4.5, link: "https://www.amazon.com/dp/B08HKRVZ4W?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71hB8cEDLYL._AC_UY218_.jpg" }
+    ],
+    laptops: [
+      { name: "Apple MacBook Pro 2026", description: "M5 Pro chip, 18-core CPU.", price: "$2499.00", rating: 4.8, link: "https://www.amazon.com/dp/B0GR1JKMBV?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/31nVXpbWm7L._AC_SR250,250_QL65_.jpg" },
+      { name: "Apple MacBook Air 15-inch 2026", description: "M5 chip, Built for AI, 15.3 inch.", price: "$1399.00", rating: 4.8, link: "https://www.amazon.com/dp/B0GR114BV7?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/41Agoc2yiaL._AC_SR250,250_QL65_.jpg" },
+      { name: "Apple MacBook Air 13-inch 2026", description: "M5 chip, Built for AI, 13.6 inch.", price: "$1199.00", rating: 4.8, link: "https://www.amazon.com/dp/B0GR1493ZV?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/41Fo3M48HAL._AC_SR250,250_QL65_.jpg" },
+      { name: "HP Business Laptop", description: "Microsoft Office 365, 1TB OneDrive, 128GB.", price: "$599.99", rating: 4.4, link: "https://www.amazon.com/dp/B0G4B33S9P?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61bU4BhnSKL._AC_UY218_.jpg" },
+      { name: "Apple MacBook Neo 13-inch 2026", description: "A18 Pro chip, Built for AI.", price: "$1099.00", rating: 4.7, link: "https://www.amazon.com/dp/B0GR6KJ72L?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61MxIxzYvUL._AC_UL640_QL65_.jpg" },
+      { name: "HP 14 Laptop", description: "Intel Celeron N4020, 4 GB RAM, 64 GB Storage.", price: "$299.99", rating: 4.3, link: "https://www.amazon.com/dp/B0947BJ67M?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/815uX7wkOZS._AC_UY218_.jpg" },
+      { name: "HP 14 Inch HD Laptop 2026", description: "Intel 4-Core, 128GB UFS, Copilot AI.", price: "$349.99", rating: 4.4, link: "https://www.amazon.com/dp/B0GRFGNJ4B?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71Bh-EFd4ML._AC_UY218_.jpg" },
+      { name: "HP 2026 Lightweight Portable Chromebook", description: "14 inch HD IPS Display, Intel Quad-Core.", price: "$279.99", rating: 4.3, link: "https://www.amazon.com/dp/B0G67CQM46?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/611pzWZp1sL._AC_UY218_.jpg" },
+      { name: "HP Home and Student Essential Laptop", description: "Microsoft 365, 1.1TB Storage.", price: "$449.99", rating: 4.4, link: "https://www.amazon.com/dp/B0G228KLHV?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71xTwcYJoCL._AC_UY218_.jpg" },
+      { name: "NIMO 15.6 IPS FHD Gaming Laptop", description: "AMD Ryzen 5 6600H, 16GB DDR5 RAM, 512GB.", price: "$699.99", rating: 4.5, link: "https://www.amazon.com/dp/B0GQY6645G?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71SO9L431iL._AC_UY218_.jpg" },
+      { name: "HP Chromebook 14", description: "Intel Celeron N4120, 4 GB RAM, 64 GB eMMC.", price: "$249.99", rating: 4.4, link: "https://www.amazon.com/dp/B09SVSBVP1?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71tXLOE7wIL._AC_UY218_.jpg" },
+      { name: "HP 15.6 Touchscreen Laptop 2026", description: "Intel 13th Gen i3.", price: "$449.99", rating: 4.5, link: "https://www.amazon.com/dp/B0GHSXHYK5?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/713+AlynD8L._AC_UY218_.jpg" },
+      { name: "Lenovo V15 Business Laptop 2026", description: "Intel Core, 15.6 inch FHD.", price: "$549.99", rating: 4.4, link: "https://www.amazon.com/dp/B0DY1ZSZGQ?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61gKEWHC9DL._AC_UY218_.jpg" },
+      { name: "NIMO 15.6 FHD Business Laptop", description: "AMD Ryzen 7 PRO 6850U, 32GB LPDDR5, 1TB.", price: "$899.99", rating: 4.6, link: "https://www.amazon.com/dp/B0G51YKMGX?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/716R+vsHGVL._AC_UY218_.jpg" },
+      { name: "HP 14 Rose Gold Lightweight Laptop", description: "Office 365 & Copilot AI, Intel.", price: "$399.99", rating: 4.4, link: "https://www.amazon.com/dp/B0C7P3HC32?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71iy-loSrdL._AC_UY218_.jpg" },
+      { name: "Apple MacBook Air 15-inch 2025", description: "M4 chip, Built for Apple Intelligence.", price: "$1199.00", rating: 4.7, link: "https://www.amazon.com/dp/B0DZDBWM5B?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71FsB1FaZ7L._AC_UY218_.jpg" },
+      { name: "Apple MacBook Neo 13-inch 2026", description: "A18 Pro chip, Built for AI.", price: "$1099.00", rating: 4.7, link: "https://www.amazon.com/dp/B0GR6JMY9W?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/619PNoEsnSL._AC_UY218_.jpg" },
+      { name: "ASUS 2026 15 FHD IPS Chromebook", description: "Intel Processor Up to 2.80GHz, 4GB.", price: "$299.99", rating: 4.3, link: "https://www.amazon.com/dp/B0GJ85B7V9?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61ClwQW+mkL._AC_UY218_.jpg" },
+      { name: "HP 15.6 Business Laptop", description: "Microsoft Office 365 with Copilot AI & 1TB.", price: "$599.99", rating: 4.5, link: "https://www.amazon.com/dp/B0GGCQSLNW?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/81EcSHuDGhL._AC_UY218_.jpg" }
+    ],
+    gaming: [
+      { name: "NIMO 17.3 IPS Gaming Laptop", description: "AMD Ryzen 7 8745HS Up to 4.9GHz.", price: "$999.99", rating: 4.5, link: "https://www.amazon.com/dp/B0G51XWJDV?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51DyQwy1BQL._AC_SR250,250_QL65_.jpg" },
+      { name: "NIMO 15.6 IPS FHD Gaming Laptop", description: "8GB RAM 256GB SSD AMD Ryzen 5.", price: "$599.99", rating: 4.4, link: "https://www.amazon.com/dp/B0DZ5LJXL3?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/41OKFyQbOxL._AC_SR250,250_QL65_.jpg" },
+      { name: "NIMO 15.6 FHD Business Laptop", description: "AMD Ryzen 7 PRO 6850U, 32GB, 1TB.", price: "$899.99", rating: 4.5, link: "https://www.amazon.com/dp/B0G51YKMGX?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/41UkYBUmNzL._AC_SR250,250_QL65_.jpg" },
+      { name: "Blue Light Blocking Glasses", description: "Fashion square eyeglasses, anti UV ray.", price: "$12.99", rating: 4.3, link: "https://www.amazon.com/dp/B0D9HRSR11?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71rWignilsL._AC_UL320_.jpg" },
+      { name: "ASUS ROG Strix G16 2025 Gaming Laptop", description: "16 inch FHD+ 16:10 165Hz/3ms Display.", price: "$1599.99", rating: 4.7, link: "https://www.amazon.com/dp/B0DZZWMB2L?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/81n1T4CYfmL._AC_UL320_.jpg" },
+      { name: "Windex Gaming Cleaning Wipes", description: "Pre-moistened wipes to instantly clean.", price: "$8.99", rating: 4.5, link: "https://www.amazon.com/dp/B0DN3CWXVN?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/713xacVMKTL._AC_UL320_.jpg" },
+      { name: "ASUS ROG G700 2025 Gaming Desktop", description: "Intel Core Ultra 7 265KF Processor.", price: "$2199.99", rating: 4.6, link: "https://www.amazon.com/dp/B0FVQYBVGP?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/81-XOUG1MAL._AC_UL320_.jpg" },
+      { name: "ASUS ROG Strix G16 2025 Gaming Laptop", description: "16 inch ROG Nebula 16:10 2.5K 240Hz.", price: "$1799.99", rating: 4.7, link: "https://www.amazon.com/dp/B0DW1FVPK8?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71WH7jtyWpL._AC_UL320_.jpg" },
+      { name: "Alienware Aurora Gaming Desktop", description: "Intel Core Ultra 9 285 Processor.", price: "$2999.99", rating: 4.6, link: "https://www.amazon.com/dp/B0F9MPVT38?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71MvbQRvOuL._AC_UL320_.jpg" },
+      { name: "Skytech Gaming Shadow 5 PC", description: "AMD Ryzen 7 7800X3D 4.2GHz, NVIDIA.", price: "$1699.99", rating: 4.5, link: "https://www.amazon.com/dp/B0GQ3VVL9T?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61jpSF8pTTL._AC_UL320_.jpg" },
+      { name: "ACEMAGIC Mini PC Gaming", description: "AMD Ryzen 7 7735HS 24GB RAM.", price: "$459.99", rating: 4.4, link: "https://www.amazon.com/dp/B0FSX2LDPH?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61Dm7SoeLlL._AC_UL640_QL65_.jpg" },
+      { name: "CushZone Foot Rest", description: "Desk & gaming accessories, gaming foot rest.", price: "$24.99", rating: 4.6, link: "https://www.amazon.com/dp/B0B7HZNMPZ?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/812S5LcnAJL._AC_UL320_.jpg" },
+      { name: "Alienware 16 Aurora Laptop", description: "16-inch 16:10 WQXGA Display, Intel.", price: "$1999.99", rating: 4.6, link: "https://www.amazon.com/dp/B0FBHXJG7K?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71LIpVe8h6L._AC_UL320_.jpg" },
+      { name: "Logitech G305 Lightspeed Wireless Mouse", description: "Hero Sensor, 12,000 DPI.", price: "$49.99", rating: 4.7, link: "https://www.amazon.com/dp/B07CMS5Q6P?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51sg9BLSMTL._AC_UL320_.jpg" },
+      { name: "Logitech G502 Hero Gaming Mouse", description: "High performance, Hero 25K sensor.", price: "$79.99", rating: 4.7, link: "https://www.amazon.com/dp/B07GBZ4Q68?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61mpMH5TzkL._AC_UL320_.jpg" },
+      { name: "Gaoye Blue Light Glasses", description: "Computer & gaming, anti UV ray lenses.", price: "$15.99", rating: 4.3, link: "https://www.amazon.com/dp/B0CY8KKJM9?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71W6kad+bBL._AC_UL320_.jpg" },
+      { name: "AODK 59 Inch Gaming Desk", description: "USB charging ports & LED light.", price: "$139.99", rating: 4.5, link: "https://www.amazon.com/dp/B0D9QK989N?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/815vg9iEVAL._AC_UL320_.jpg" },
+      { name: "Razer BlackShark V2 X Xbox Headset", description: "50mm drivers, cardioid mic.", price: "$69.99", rating: 4.5, link: "https://www.amazon.com/dp/B0CXGTGPZQ?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71359PHAM1L._AC_UL320_.jpg" },
+      { name: "Ozeino Gaming Headset", description: "For PC, PS4, PS5, Xbox with 7.1 surround.", price: "$39.99", rating: 4.4, link: "https://www.amazon.com/dp/B09TB15CTL?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/712OyBPPL0L._AC_UL320_.jpg" },
+      { name: "ASUS ROG Xbox Ally", description: "7 inch 1080p 120Hz touchscreen handheld.", price: "$699.99", rating: 4.7, link: "https://www.amazon.com/dp/B0FM6C3ZMN?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61gZGeavWGL._AC_UL320_.jpg" },
+      { name: "FIFINE XLR/USB Gaming Microphone", description: "Dynamic PC mic for streaming podcast.", price: "$89.99", rating: 4.6, link: "https://www.amazon.com/dp/B0C74GYW3J?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61-0YoCB2LL._AC_UL320_.jpg" },
+      { name: "Yeabomy Wired Gaming Earbuds", description: "Ak3file in ear monitors, deep bass.", price: "$19.99", rating: 4.3, link: "https://www.amazon.com/dp/B0D48T85PQ?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/619bBByro4L._AC_UL320_.jpg" },
+      { name: "LISEN Cell Phone Stand", description: "Office desk decor phone holder.", price: "$12.99", rating: 4.5, link: "https://www.amazon.com/dp/B07Z82895W?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61KD4hoirXL._AC_UL320_.jpg" },
+      { name: "EURPMASK Rotating Headphone Stand", description: "PC gaming headset holder, adjustable.", price: "$29.99", rating: 4.6, link: "https://www.amazon.com/dp/B07BVK2FQW?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51qgeU3mecL._AC_UL320_.jpg" },
+      { name: "Logitech G733 Lightspeed Headset", description: "Wireless with suspension headband.", price: "$99.99", rating: 4.6, link: "https://www.amazon.com/dp/B08141GQQG?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71ub9aXwh0L._AC_UL320_.jpg" },
+      { name: "WOLFBOX MF50 Air Duster", description: "110000RPM super power electric air blower.", price: "$39.99", rating: 4.5, link: "https://www.amazon.com/dp/B0DSW7R4VN?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/713BEhBxXWL._AC_UL320_.jpg" },
+      { name: "MNN Portable Monitor 15.6inch", description: "FHD 1080P USB C HDMI gaming ultra-slim.", price: "$159.99", rating: 4.4, link: "https://www.amazon.com/dp/B0B9NNWXVP?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/81Q9vMNUOyL._AC_UL320_.jpg" },
+      { name: "KontrolFreek Precision Rings", description: "Aim assist motion control for PlayStation.", price: "$14.99", rating: 4.5, link: "https://www.amazon.com/dp/B08TRMS8PS?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/81vWntXa1tL._AC_UL320_.jpg" },
+      { name: "BladeHawks XL RGB Gaming Mouse Pad", description: "14 light modes, extended size.", price: "$19.99", rating: 4.4, link: "https://www.amazon.com/dp/B07L4BGL3D?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51UsbIj9HAL._AC_UL320_.jpg" },
+      { name: "MAXJULI Blue Light Blocking Glasses", description: "Computer reading/gaming/TV/phones.", price: "$14.99", rating: 4.3, link: "https://www.amazon.com/dp/B081RLZWG7?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51yeBfRCRUL._AC_UL320_.jpg" },
+      { name: "Kelool Do Not Disturb Gaming Socks", description: "Men gifts for teen boys dad.", price: "$12.99", rating: 4.4, link: "https://www.amazon.com/dp/B092J1SPX5?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/81brwJRDCNL._AC_UL320_.jpg" },
+      { name: "JBL Quantum 100M2 Gaming Headset", description: "Wired over-ear with omnidirectional mic.", price: "$49.99", rating: 4.5, link: "https://www.amazon.com/dp/B0DR3NH8JH?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71TVANNhnNL._AC_UL320_.jpg" },
+      { name: "LEGO Super Mario Game Boy", description: "Retro building sets for adults.", price: "$49.99", rating: 4.7, link: "https://www.amazon.com/dp/B0DX3J6MT7?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71AV0wHyDUL._AC_UL320_.jpg" },
+      { name: "GEODMAER 65% Gaming Keyboard", description: "Wired backlit mini keyboard.", price: "$49.99", rating: 4.4, link: "https://www.amazon.com/dp/B0D3CZYCH2?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61RM1rMoceL._AC_UL320_.jpg" },
+      { name: "KDD Headphone & Controller Stand", description: "With wireless charging, rotatable.", price: "$39.99", rating: 4.5, link: "https://www.amazon.com/dp/B0DGGNPHP8?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61JI6UgtcJL._AC_UL320_.jpg" },
+      { name: "DEASFIOT Easter Basket Stuffers", description: "For teens funny basket essentials.", price: "$14.99", rating: 4.3, link: "https://www.amazon.com/dp/B0F636ZXSZ?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61Fcf8PoNNL._AC_UL320_.jpg" },
+      { name: "8BitDo Ultimate 2C Controller", description: "Wireless for Windows PC and Android.", price: "$44.99", rating: 4.6, link: "https://www.amazon.com/dp/B0D739FJLG?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51DTcaDKELL._AC_UL320_.jpg" },
+      { name: "Frigidaire Gaming Mini Fridge", description: "6 can, 4 liters beverage refrigerator.", price: "$89.99", rating: 4.5, link: "https://www.amazon.com/dp/B0BGYK6SVQ?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71yl7YJUTKL._AC_UL320_.jpg" },
+      { name: "ASUS ROG Strix G18 2025 Gaming Laptop", description: "18 inch ROG Nebula 16:10 2.5K 240Hz.", price: "$1999.99", rating: 4.7, link: "https://www.amazon.com/dp/B0F1CB49YB?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/81mRCWvzUTL._AC_UL320_.jpg" },
+      { name: "Lenovo Legion Tower 5i", description: "AI-powered gaming PC, Intel Core Ultra 7.", price: "$1799.99", rating: 4.6, link: "https://www.amazon.com/dp/B0F5YNX43T?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51XekLq5PxL._AC_UL320_.jpg" },
+      { name: "Razer Tartarus V2 Gaming Keypad", description: "Mech membrane key switches, one hand.", price: "$69.99", rating: 4.5, link: "https://www.amazon.com/dp/B07754PYFK?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71r3ktfakgL._AC_UL320_.jpg" },
+      { name: "ALACOO Gaming Headphone Stand", description: "With charging station, aluminum hooks.", price: "$34.99", rating: 4.5, link: "https://www.amazon.com/dp/B09QLY2PSC?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71iLAtq0rVL._AC_UL320_.jpg" },
+      { name: "HUANUO Dual Monitor Stand", description: "Fully adjustable gaming monitor desk mount.", price: "$79.99", rating: 4.6, link: "https://www.amazon.com/dp/B07T5SY43L?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/7182jSFV25L._AC_UL320_.jpg" },
+      { name: "ASUS ROG Flow Z13", description: "2.5K 180Hz 3ms ROG Nebula touchscreen.", price: "$1499.99", rating: 4.7, link: "https://www.amazon.com/dp/B0DT7MNLTD?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71oIJjlYwCL._AC_UL320_.jpg" },
+      { name: "KAMRUI Hyper H1 Mini Gaming PC", description: "AMD Ryzen 7 7735HS.", price: "$399.99", rating: 4.4, link: "https://www.amazon.com/dp/B0DTPPMXX6?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61ICE3Tm16L._AC_UL320_.jpg" },
+      { name: "Logitech G435 Lightspeed Headset", description: "Wireless & Bluetooth, lightweight.", price: "$79.99", rating: 4.5, link: "https://www.amazon.com/dp/B08R8DT7X6?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/81bQEkMevBL._AC_UL320_.jpg" },
+      { name: "Redragon K585 DITI One-Handed Keyboard", description: "Wired RGB mechanical gaming keypad.", price: "$49.99", rating: 4.4, link: "https://www.amazon.com/dp/B07NBJVH4G?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71zS0BekOfL._AC_UL320_.jpg" },
+      { name: "BENGOO Gaming Mouse Wired", description: "Ergonomic gamer laptop PC optical.", price: "$12.99", rating: 4.3, link: "https://www.amazon.com/dp/B00Z9V0NKC?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61tZtPJmEmL._AC_UL320_.jpg" },
+      { name: "LENRUE G11 Computer Speakers", description: "Touch lights PC speakers.", price: "$29.99", rating: 4.4, link: "https://www.amazon.com/dp/B0BRFN13S9?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/715MdMHfsJL._AC_UL320_.jpg" }
+    ],
+    "smart-home": [
+      { name: "Amazon Fire TV Stick 4K Select", description: "Newest model, start streaming in 4K.", price: "$49.99", rating: 4.6, link: "https://www.amazon.com/dp/B0C6W3D4RM?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61r3G3vAhBL._AC_SL160_.jpg" },
+      { name: "Amazon Fire TV Cube", description: "AI-powered Fire TV Search, hands-free.", price: "$139.99", rating: 4.7, link: "https://www.amazon.com/dp/B09BZZ3MM7?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61CvilMENWL._AC_SL160_.jpg" },
+      { name: "Amazon Fire TV Stick 4K Plus", description: "Newest model with AI-powered search.", price: "$64.99", rating: 4.7, link: "https://www.amazon.com/dp/B0F7Z4QZTT?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51WtNy0OxLL._AC_SL160_.jpg" },
+      { name: "Surge Protector Outlet Extender", description: "With night light, 5-outlet splitter.", price: "$24.99", rating: 4.5, link: "https://www.amazon.com/dp/B09XMMZSWW?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51fvNqvlFCL._AC_UL320_.jpg" },
+      { name: "Amazon Echo Show 5", description: "Smart display, designed for Alexa+.", price: "$89.99", rating: 4.6, link: "https://www.amazon.com/dp/B09B2SBHQK?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61gwIm-iSnL._AC_UL320_.jpg" },
+      { name: "Sujeet Night Light 4-Pack", description: "Plug into wall nightlights.", price: "$14.99", rating: 4.4, link: "https://www.amazon.com/dp/B0C9MRV1K9?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61q4QSHYjuL._AC_UL320_.jpg" },
+      { name: "Amazon Fire TV Stick HD", description: "Newest model, free and live TV.", price: "$39.99", rating: 4.5, link: "https://www.amazon.com/dp/B0CQMRKRV5?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61nyRfbgaLL._AC_UL320_.jpg" },
+      { name: "Amazon Echo Spot", description: "Great for nightstands, offices and kids.", price: "$84.99", rating: 4.6, link: "https://www.amazon.com/dp/B0BFC7WQ6R?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61bA0fjrSXL._AC_UL320_.jpg" },
+      { name: "Blink Mini Camera", description: "Compact indoor plug-in smart security.", price: "$34.99", rating: 4.5, link: "https://www.amazon.com/dp/B07X6C9RMF?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/31k4JysPQ5L._AC_UL320_.jpg" },
+      { name: "Blink Outdoor 4 Camera", description: "Wireless smart security, two-year battery.", price: "$99.99", rating: 4.5, link: "https://www.amazon.com/dp/B0DHLQT3CG?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/414-yxOaD8L._AC_UL320_.jpg" },
+      { name: "Etekcity Smart Scale", description: "FSA&HSA eligible, bathroom digital.", price: "$29.99", rating: 4.6, link: "https://www.amazon.com/dp/B095YJW56C?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71XIV9FM8HL._AC_UL320_.jpg" },
+      { name: "PHILIPS Hue Smart Dimmer Switch", description: "With remote, turns Hue lights on/off.", price: "$34.99", rating: 4.5, link: "https://www.amazon.com/dp/B08W8GLPD5?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/5134Diycx6L._AC_UL320_.jpg" },
+      { name: "LEONLITE Alter-Link Well Lights", description: "Landscape LED in-ground outdoor lights.", price: "$49.99", rating: 4.4, link: "https://www.amazon.com/dp/B0GQ2ZQ4QY?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71cDufm3SyL._AC_UL320_.jpg" },
+      { name: "ULTRALOQ U-Bolt Pro WiFi Smart Lock", description: "8-in-1 keyless entry, door sensor.", price: "$249.99", rating: 4.6, link: "https://www.amazon.com/dp/B0C61DKKL8?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71-4eTgk5OL._AC_UL640_QL65_.jpg" },
+      { name: "WYZE Cam Pan v3", description: "Indoor/outdoor IP65-rated 1080p pan/tilt.", price: "$39.99", rating: 4.5, link: "https://www.amazon.com/dp/B0B9TWY11Q?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61zQmZVmeKL._AC_UL320_.jpg" },
+      { name: "Surge Protector Power Strip", description: "HANYCONY extension cord multiple outlets.", price: "$29.99", rating: 4.5, link: "https://www.amazon.com/dp/B0BVZCLW3R?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/516kyL3WcGL._AC_UL320_.jpg" },
+      { name: "Holikme Dryer Vent Cleaner Kit", description: "Dryer lint vacuum attachment brush.", price: "$19.99", rating: 4.5, link: "https://www.amazon.com/dp/B08SBQBF2R?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71yT-KSxZrL._AC_UL320_.jpg" },
+      { name: "GoveeLife Mini Air Purifier", description: "Smart filter air purifier.", price: "$79.99", rating: 4.4, link: "https://www.amazon.com/dp/B0C3QQMMRJ?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71UwRqtlo7L._AC_UL320_.jpg" },
+      { name: "ApoloSign 32 UHD 4K Smart Portable TV", description: "16GB RAM+256GB, 2nd gen.", price: "$399.99", rating: 4.5, link: "https://www.amazon.com/dp/B0F2YD3VV5?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61fNRiolhBL._AC_UL320_.jpg" },
+      { name: "Kasa Smart Plug Mini 15A", description: "WiFi outlet works with Alexa.", price: "$14.99", rating: 4.5, link: "https://www.amazon.com/dp/B091FXLMS8?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51L3mlb5BXL._AC_UL320_.jpg" },
+      { name: "Purriko Refrigerator Deodorizer", description: "Lasts up to 10 years, refrigerator odor.", price: "$19.99", rating: 4.4, link: "https://www.amazon.com/dp/B09VZ11WHK?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71Yk6yF+UsL._AC_UL320_.jpg" },
+      { name: "Govee Smart Light Bulbs", description: "Color changing, work with Alexa.", price: "$24.99", rating: 4.5, link: "https://www.amazon.com/dp/B09B7NQT2K?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61G5-oBZmzL._AC_UL320_.jpg" },
+      { name: "Govee Smart Recessed Lighting 6 Inch", description: "Matter RGBIC LED recessed light.", price: "$89.99", rating: 4.5, link: "https://www.amazon.com/dp/B0F211XJQS?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/716MdCfNyKL._AC_UL320_.jpg" },
+      { name: "Amazon Echo Show 5", description: "Smart display designed for Alexa+.", price: "$89.99", rating: 4.6, link: "https://www.amazon.com/dp/B09B2QTGFY?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61DPOznwayL._AC_UL320_.jpg" },
+      { name: "Aqara Presence Sensor FP2", description: "mmWave radar wired smart motion sensor.", price: "$59.99", rating: 4.5, link: "https://www.amazon.com/dp/B0BXWZMQJ3?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61PfRiC4NcL._AC_UL320_.jpg" },
+      { name: "LEVOIT Air Purifier", description: "For home bedroom dorm room, smart control.", price: "$129.99", rating: 4.6, link: "https://www.amazon.com/dp/B08FJ678YK?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61YVFzh9kLL._AC_UL320_.jpg" },
+      { name: "eufy Security eufy Smart Display E10", description: "Smart home hub, 8 inch control panel.", price: "$129.99", rating: 4.4, link: "https://www.amazon.com/dp/B0F2MS961W?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51+Oj3BJZtL._AC_UL320_.jpg" },
+      { name: "KSIPZE 100ft Led Strip Lights", description: "RGB music sync color changing.", price: "$29.99", rating: 4.5, link: "https://www.amazon.com/dp/B09V366BDY?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71lntIT6FfL._AC_UL320_.jpg" },
+      { name: "Amazon Smart Plug", description: "Works with Alexa, simple setup.", price: "$24.99", rating: 4.5, link: "https://www.amazon.com/dp/B089DR29T6?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/418YMoZUkYL._AC_UL320_.jpg" },
+      { name: "Kasa Smart Light Switch HS200", description: "Single pole, needs neutral wire.", price: "$19.99", rating: 4.5, link: "https://www.amazon.com/dp/B01EZV35QU?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/611JGGx4DPL._AC_UL320_.jpg" },
+      { name: "ecobee Smart Thermostat Enhanced", description: "Programmable wifi thermostat.", price: "$169.99", rating: 4.6, link: "https://www.amazon.com/dp/B09XXTQPXC?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51YWnoWYbkL._AC_UL320_.jpg" },
+      { name: "Aqara Smart Home Hub M3", description: "Matter controller, thread border router.", price: "$99.99", rating: 4.5, link: "https://www.amazon.com/dp/B0CWLHSKYC?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61sFQ557qNL._AC_UL320_.jpg" },
+      { name: "GHome Smart Plug WiFi", description: "Work with Alexa and Google Home.", price: "$19.99", rating: 4.4, link: "https://www.amazon.com/dp/B0D7ZWGXGP?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61mwZi5guiL._AC_UL320_.jpg" },
+      { name: "Assistrust Sound Bar for Smart TV", description: "Soundbar with Bluetooth/ARC/Opt/AUX.", price: "$79.99", rating: 4.4, link: "https://www.amazon.com/dp/B0DNZCJ93D?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/615QZ694L3L._AC_UL320_.jpg" },
+      { name: "Govee RGBIC LED Strip Lights", description: "Smart LED lights for bedroom.", price: "$39.99", rating: 4.5, link: "https://www.amazon.com/dp/B0991Q94KP?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71tjdZg28vL._AC_UL320_.jpg" },
+      { name: "Electric Salt and Pepper Grinder Set", description: "Automatic battery pepper mill shaker.", price: "$29.99", rating: 4.4, link: "https://www.amazon.com/dp/B0DJSQQ1ZW?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71NpF4JP7HL._AC_UL320_.jpg" },
+      { name: "Wall Outlet Extender with Shelf", description: "Surge protector, night light.", price: "$19.99", rating: 4.5, link: "https://www.amazon.com/dp/B09ZKZYBZX?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/511RHXivY1L._AC_UL320_.jpg" },
+      { name: "TP-Link Tapo 1080P Indoor Camera", description: "For baby monitor, dog camera.", price: "$24.99", rating: 4.5, link: "https://www.amazon.com/dp/B0866S3D82?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61eXVrZMglL._AC_UL320_.jpg" },
+      { name: "Govee RGBIC Floor Lamp Basic", description: "1000lm LED corner lamp, Alexa compatible.", price: "$69.99", rating: 4.5, link: "https://www.amazon.com/dp/B099WTN2TR?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61SdRNLwZzL._AC_UL320_.jpg" },
+      { name: "Amazon Echo Show 15", description: "Full HD 15.6 inch kitchen hub.", price: "$199.99", rating: 4.6, link: "https://www.amazon.com/dp/B0C5DPSW5Y?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61xQl81iYQL._AC_UL320_.jpg" },
+      { name: "Govee RGBIC Smart Table Lamp 2", description: "Touch bedside small lamp, Alexa compatible.", price: "$39.99", rating: 4.5, link: "https://www.amazon.com/dp/B0D41XL87F?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/618yTEtHltL._AC_UL320_.jpg" },
+      { name: "Govee Smart Recessed Lighting WiFi", description: "Bluetooth direct connect RGBIC.", price: "$79.99", rating: 4.5, link: "https://www.amazon.com/dp/B0B1V6G21S?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/71NqEWTuwZL._AC_UL320_.jpg" },
+      { name: "WYZE Cam Pan v4", description: "4K smart security camera, AI indoor/outdoor.", price: "$59.99", rating: 4.6, link: "https://www.amazon.com/dp/B0F8VWZF5R?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/61epMPzjwHL._AC_UL320_.jpg" },
+      { name: "Amazon Echo Show 8", description: "With spatial audio, smart home hub.", price: "$129.99", rating: 4.6, link: "https://www.amazon.com/dp/B0BLS3QJTX?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/51NVxvLL5yL._AC_UL320_.jpg" },
+      { name: "INCHOR Cord Organizer", description: "Cable clips cord holder, USB C management.", price: "$9.99", rating: 4.5, link: "https://www.amazon.com/dp/B087TH1R6T?tag=weselleazy4u-20", image: "https://m.media-amazon.com/images/I/81jDakdFrvL._AC_UL320_.jpg" }
+    ]
+  };
+
+  // ============================================
+  // RENDERING CODE - Don't edit below
+  // ============================================
+
+  function renderStars(rating) {
+    const full = Math.floor(rating);
+    const half = rating % 1 >= 0.5 ? 1 : 0;
+    const empty = 5 - full - half;
+    return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty) + ` ${rating}`;
+  }
+
+  function showCategory(categoryId) {
+    const cat = categories.find(c => c.id === categoryId);
+    if (!cat) return;
+
+    document.getElementById('home-view').classList.add('hidden');
+    document.getElementById('category-view').classList.remove('hidden');
+    
+    document.getElementById('category-title').textContent = cat.icon + ' ' + cat.name;
+    
+    document.getElementById('breadcrumb').classList.remove('hidden');
+    document.getElementById('breadcrumb').innerHTML = 
+      `<a href="#" onclick="showHome(); return false;">Home</a> → ${cat.name}`;
+
+    // Render search banner
+    const searchBanner = document.getElementById('search-banners');
+    if (searchLinks[categoryId]) {
+      searchBanner.innerHTML = `
+        <div class="search-banner">
+          <div class="search-banner-inner">
+            <img class="banner-image" src="${cat.bannerImage}" alt="${cat.name}" onerror="this.style.display='none'">
+            <div class="banner-content">
+              <h3>Browse All ${cat.name}</h3>
+              <p>See thousands of options. You'll earn commission on anything they buy!</p>
+              <a class="btn-search" href="${searchLinks[categoryId]}" target="_blank" rel="nofollow sponsored">
+                Browse on Amazon
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+    } else {
+      searchBanner.innerHTML = '';
+    }
+
+    // Render products
+    const catProducts = products[categoryId] || [];
+    const grid = document.getElementById('products');
+    
+    if (catProducts.length === 0) {
+      grid.innerHTML = '<p style="color:#6e6e73;">No individual products yet. Use the search link above to browse all items!</p>';
+    } else {
+      grid.innerHTML = catProducts.map(p => `
+        <article class="product-card">
+          ${p.image 
+            ? `<img class="product-image" src="${p.image}" alt="${p.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'; this.nextElementSibling.innerHTML='${p.emoji || '📦'}';">` 
+            : ''}
+          <div class="product-image emoji-fallback" style="display:none;">📦</div>
+          <div class="product-content">
+            <h3 class="product-title">${p.name}</h3>
+            <p class="product-desc">${p.description}</p>
+            <div class="product-meta">
+              <span class="product-price">${p.price}</span>
+              <span class="product-rating">${renderStars(p.rating)}</span>
+            </div>
+            <a class="btn-buy" href="${p.link}" target="_blank" rel="nofollow sponsored">
+              Check Price on Amazon
+            </a>
+          </div>
+        </article>
+      `).join('');
+    }
+  }
+
+  function showHome() {
+    document.getElementById('home-view').classList.remove('hidden');
+    document.getElementById('category-view').classList.add('hidden');
+    document.getElementById('breadcrumb').classList.add('hidden');
+  }
+
+  // Render categories on load
+  const catGrid = document.getElementById('categories');
+  catGrid.innerHTML = categories.map(c => `
+    <a href="#" class="category-card" onclick="showCategory('${c.id}'); return false;">
+      <img class="card-image" src="${c.image}" alt="${c.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <div class="icon" style="display:none;">${c.icon}</div>
+      <div class="name">${c.name}</div>
+      <div class="count">${(products[c.id] || []).length} products</div>
+    </a>
+  `).join('');
+</script>
+
+</body>
+</html>
